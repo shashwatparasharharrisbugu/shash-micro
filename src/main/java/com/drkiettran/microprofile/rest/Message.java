@@ -2,10 +2,12 @@ package com.drkiettran.microprofile.rest;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class Message implements Serializable {
+	
+
 	private static final long serialVersionUID = 2120914098830910225L;
 
 	@JsonProperty("name")
@@ -24,7 +28,19 @@ public class Message implements Serializable {
 
 	@JsonProperty("message")
 	private String message;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	@JsonProperty("date")
+	private Date date;
+	
+	public Date getDate() {
+		return date;
+	}
 
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	public String getName() {
 		return name;
 	}
