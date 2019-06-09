@@ -2,6 +2,8 @@ package com.drkiettran.microprofile.rest;
 
 import java.net.UnknownHostException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,9 +14,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.LoggerFactory;
+
 @Path("/greetings")
 public class HelloWorldEndpoint {
 
+	private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(HelloWorldEndpoint.class);
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{year}/{month}/{day}")
@@ -28,6 +34,8 @@ public class HelloWorldEndpoint {
 		// Adding current date to the message.
 		Date todaysDate = new Date();
 		message.setDate(todaysDate);
+		LOGGER.log(Level.INFO, "Added current date to message object");
+		
 		return Response.status(200).entity(message).build();
 	}
 
@@ -46,6 +54,8 @@ public class HelloWorldEndpoint {
 		// Adding current date to the object.
 		Date todaysDate = new Date();
 		message.setDate(todaysDate);
+		LOGGER.log(Level.INFO, "Added current date to message object");
+		
 		message.setName(inMessage.getName());
 		message.setMessage(greetings.hello(inMessage.getName()));
 		return Response.status(200).entity(message).build();
